@@ -76,7 +76,7 @@ def condition_for_well(well: str, condition_by_row: dict[str, str]) -> str:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Map plate wells to conditions by row")
-    parser.add_argument("--config", required=True, help="Path to plate config (.yaml)")
+    parser.add_argument("--config", required=True, help="Path to plate config (.yaml or .json)")
     parser.add_argument("wells", nargs="+", help="Well IDs (e.g. A1 B1 H12)")
     return parser
 
