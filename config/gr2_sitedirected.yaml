@@ -1,0 +1,13 @@
+{
+  "experiment": "gr2_sitedirected",
+  "condition_by_row": {
+    "A": "gr2",
+    "B": "gr2",
+    "C": "gr2",
+    "D": "gr2",
+    "E": "gr2",
+    "F": "gr2",
+    "G": "gr2",
+    "H": "gr2"
+  }
+}
