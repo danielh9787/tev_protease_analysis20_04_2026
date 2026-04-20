@@ -23,16 +23,16 @@ def _parse_simple_yaml(text: str) -> dict[str, object]:
         if line.startswith("  "):
             if nested_key is None or nested_map is None:
                 raise ValueError("invalid YAML structure")
-            key, _, value = line.strip().partition(":")
-            if not _:
+            key, separator, value = line.strip().partition(":")
+            if not separator:
                 raise ValueError("invalid nested YAML entry")
             nested_map[key.strip()] = value.strip()
             continue
 
         nested_key = None
         nested_map = None
-        key, _, value = line.partition(":")
-        if not _:
+        key, separator, value = line.partition(":")
+        if not separator:
             raise ValueError("invalid YAML entry")
 
         key = key.strip()
