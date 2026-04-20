@@ -10,8 +10,50 @@ from pathlib import Path
 VALID_ROWS = tuple("ABCDEFGH")
 
 
+def _parse_simple_yaml(text: str) -> dict[str, object]:
+    payload: dict[str, object] = {}
+    nested_key: str | None = None
+    nested_map: dict[str, str] | None = None
+
+    for raw_line in text.splitlines():
+        line = raw_line.rstrip()
+        if not line or line.lstrip().startswith("#"):
+            continue
+
+        if line.startswith("  "):
+            if nested_key is None or nested_map is None:
+                raise ValueError("invalid YAML structure")
+            key, _, value = line.strip().partition(":")
+            if not _:
+                raise ValueError("invalid nested YAML entry")
+            nested_map[key.strip()] = value.strip()
+            continue
+
+        nested_key = None
+        nested_map = None
+        key, _, value = line.partition(":")
+        if not _:
+            raise ValueError("invalid YAML entry")
+
+        key = key.strip()
+        value = value.strip()
+        if value:
+            payload[key] = value
+        else:
+            nested_key = key
+            nested_map = {}
+            payload[key] = nested_map
+
+    return payload
+
+
 def load_condition_by_row(config_path: str | Path) -> dict[str, str]:
-    payload = json.loads(Path(config_path).read_text(encoding="utf-8"))
+    config_text = Path(config_path).read_text(encoding="utf-8")
+    try:
+        payload = json.loads(config_text)
+    except json.JSONDecodeError:
+        payload = _parse_simple_yaml(config_text)
+
     mapping = payload.get("condition_by_row")
     if not isinstance(mapping, dict):
         raise ValueError("config must include a condition_by_row mapping")

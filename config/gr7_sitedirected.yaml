@@ -1,13 +1,10 @@
-{
-  "experiment": "gr7_sitedirected",
-  "condition_by_row": {
-    "A": "gr7",
-    "B": "gr7",
-    "C": "gr7",
-    "D": "gr7",
-    "E": "gr7",
-    "F": "gr7",
-    "G": "gr7",
-    "H": "gr7"
-  }
-}
+experiment: gr7_sitedirected
+condition_by_row:
+  A: gr7
+  B: gr7
+  C: gr7
+  D: gr7
+  E: gr7
+  F: gr7
+  G: gr7
+  H: gr7
